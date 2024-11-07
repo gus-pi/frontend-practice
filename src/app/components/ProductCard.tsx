@@ -1,5 +1,4 @@
 import { Product } from '@/lib/types';
-import Image from 'next/image';
 
 const ProductCard = ({ product }: { product: Product }) => {
   return (

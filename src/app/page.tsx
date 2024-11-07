@@ -4,26 +4,14 @@ import { Product } from '@/lib/types';
 import { FormEvent, useEffect, useState } from 'react';
 import ProductCard from './components/ProductCard';
 import ProductSearch from './components/ProductSearch';
+import useGetQuery from './hooks/useGetQuery';
 
 export default function Home() {
-  const [products, setProducts] = useState<Product[]>([]);
   const [query, setQuery] = useState('');
   const [search, setSearch] = useState('');
   const [category, setCategory] = useState('');
 
-  const fetchProducts = async () => {
-    const res = await fetch(
-      `https://api.escuelajs.co/api/v1/products/?title=${search}&categoryId=${category}`
-    );
-    const data = await res.json();
-    if (data) {
-      setProducts(data);
-    }
-  };
-
-  useEffect(() => {
-    fetchProducts();
-  }, [search, category]);
+  const { products } = useGetQuery(search, category);
 
   const handleSearch = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
